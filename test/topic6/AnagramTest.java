@@ -3,6 +3,9 @@ package topic6;
 
 import static org.junit.Assert.assertThat;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -59,5 +62,31 @@ public class AnagramTest {
         System.out.println("The word is " + s1 +", sign is:" + anagram.getWordSign(s1) + ", words list are:" +anagram.getStringBySign(s1));        
         System.out.println("The word is " + s2 +", sign is:" + anagram.getWordSign(s2) + ", words list are:" +anagram.getStringBySign(s2));        
     
+    }
+    @Test
+    public void testInfo(){
+        anagram.loadDictionary();
+        anagram.buildMap();
+        anagram.Info();
+    }
+    
+    @Test
+    public void testLongestWords(){
+        anagram.loadDictionary();
+        anagram.buildMap();
+        HashMap<List<Character>, List<String>> wordsList = anagram.getLongestWords();
+    	for(List<Character> charList: wordsList.keySet()){
+    		System.out.println("key is:" + charList + ", wordList is:"+ anagram.getSortedWords().get(charList));
+    	}
+    }
+    
+    @Test
+    public void testMostAnagramWordsList(){
+        anagram.loadDictionary();
+        anagram.buildMap();
+        HashMap<List<Character>, List<String>> wordsList = anagram.getMostAnagramWords();
+    	for(List<Character> charList: wordsList.keySet()){
+    		System.out.println("key is:" + charList + ", wordList is:"+ anagram.getSortedWords().get(charList));
+    	}
     }
 }
