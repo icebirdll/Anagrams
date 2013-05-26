@@ -19,13 +19,14 @@ public class AnagramTest {
     @Before
     public void beforeTest()
     {
+       System.out.println("=====================A new case start=====================");
        anagram = new Anagram("Unabr.dict");
     }
     
     @After
     public void afterTest()
     {
-        
+        System.out.println("=====================A new case end=======================");
     }
     
     @Test
@@ -67,7 +68,8 @@ public class AnagramTest {
     public void testInfo(){
         anagram.loadDictionary();
         anagram.buildMap();
-        anagram.Info();
+        anagram.info();
+        anagram.sizeOfMap();
     }
     
     @Test
@@ -78,6 +80,16 @@ public class AnagramTest {
     	for(List<Character> charList: wordsList.keySet()){
     		System.out.println("key is:" + charList + ", wordList is:"+ anagram.getSortedWords().get(charList));
     	}
+    }
+    
+    @Test
+    public void testLongestAnagramWords(){
+        anagram.loadDictionary();
+        anagram.buildMap();
+        HashMap<List<Character>, List<String>> wordsList = anagram.getLongestAnagramWords();
+        for(List<Character> charList: wordsList.keySet()){
+            System.out.println("key is:" + charList + ", wordList is:"+ anagram.getSortedWords().get(charList));
+        }
     }
     
     @Test

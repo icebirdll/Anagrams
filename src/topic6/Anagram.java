@@ -102,8 +102,19 @@ public class Anagram {
 
     }
     
-    public void Info(){
+    public void info(){
         System.out.println("The size after build the map is:" + sortedWords.size());
+    }
+    
+    public void sizeOfMap(){
+        int numOfAnagram = 0;
+        for(List<String> wordsList: sortedWords.values()){
+            if(wordsList.size() > 1){
+                // Anagram should have at least 2 words
+                numOfAnagram ++;
+            }
+        }
+        System.out.println("The size of Anagram is:" + numOfAnagram);
     }
     
     public HashMap<List<Character>, List<String>> getLongestWords(){
@@ -128,6 +139,30 @@ public class Anagram {
     		longestWords.put(charList, sortedWords.get(charList));
     	}
         return longestWords;        
+    }
+    
+    public HashMap<List<Character>, List<String>> getLongestAnagramWords(){
+        HashMap<List<Character>, List<String>> longestWords = new HashMap<List<Character>, List<String>>();     
+        Set<ArrayList<Character>> keysOfLongestWords = new HashSet<ArrayList<Character>>();
+        long currentMaxLength = 0;
+        
+        for(List<Character> charList: sortedWords.keySet()){
+            if(sortedWords.get(charList).size() < 2 || currentMaxLength > charList.size()){
+                continue;
+            }
+            else if(currentMaxLength == charList.size()){
+                keysOfLongestWords.add((ArrayList<Character>) charList);
+            }
+            else{
+                currentMaxLength = charList.size();
+                keysOfLongestWords.clear();
+                keysOfLongestWords.add((ArrayList<Character>) charList);                
+            }
+        }
+        for(List<Character> charList: keysOfLongestWords){
+            longestWords.put(charList, sortedWords.get(charList));
+        }
+        return longestWords;
     }
     
     public  HashMap<List<Character>, List<String>> getMostAnagramWords(){
