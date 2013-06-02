@@ -8,21 +8,23 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
 public class BadAnagram {
 String fileName;
     
-    List<String> wordsList;
+    //the dictionary
+    List<String> wordsDictonary;
     //temp for all the combination of one words
     HashSet<String> wordsCombineList = new HashSet<String>();
-    
-    HashMap<String, List<String>> sortedWords;
+    //store all the anagram
+    HashSet<List<String>> sortedWords;
     
     public BadAnagram(String fileName){
         this.fileName = fileName;
-        wordsList = new ArrayList<String>();
-        sortedWords = new HashMap<String, List<String>>();        
+        wordsDictonary = new ArrayList<String>();
+        sortedWords = new HashSet<List<String>>();        
     }
 
     public void loadDictionary() {
@@ -31,7 +33,7 @@ String fileName;
             br = new BufferedReader(new FileReader(fileName));
             String r = br.readLine();
             while (r != null) {
-                wordsList.add(r);
+                wordsDictonary.add(r);
                 r = br.readLine();
             }
         } catch (FileNotFoundException e) {
@@ -47,32 +49,23 @@ String fileName;
         }
     }
     
-    public void buildMap(){
-        if(wordsList.isEmpty()){
+    public void buildMap() {
+        if (wordsDictonary.isEmpty()) {
             return;
         }
-        String keys = null;
-
-        for (String temp:wordsList){
-            keys = getWordSign(temp);
-            if(sortedWords.containsKey(keys)){
-                sortedWords.get(keys).add(temp);
-            }
-            else{
-                ArrayList<String> newItem= new ArrayList<String>();
-                newItem.add(temp);
-                sortedWords.put(keys, newItem); 
-            }
+        Iterator<String> it = wordsDictonary.iterator();
+        while(it.hasNext()){
+            createWordsCombineSet(it.next());
         }
     }
     
     private void WordsCombineSet(List<Character> datas, List<Character> target,
             int num) {
         if (target.size() == num) {
-            System.out.println("datas: " + datas);
-            System.out.println("target: " + target);
-            System.out.println("num: " + num);
-            wordsCombineList.add(target.toString());
+//            System.out.println("datas: " + datas);
+//            System.out.println("target: " + target);
+//            System.out.println("num: " + num);
+            wordsCombineList.add(stringListToString(target));
             return;
         }
         
@@ -85,20 +78,28 @@ String fileName;
         }
     }
 
-    public void createWordsCombineSet(List<Character> datas, List<Character> target,
-            int num) {
-        wordsCombineList.clear();
-        WordsCombineSet(datas, target, num);
+    //find a possible anagrams for a words
+    private void createWordsCombineSet(String s) {
+        WordsCombineSet(stringToCharacterList(s), new ArrayList<Character>(), s.length());
+        storeAnagram();
     }
     
-//    public String stringListToString(List<String> target){
-//        StringBuffer s = new StringBuffer();
-//        for (String t : target)
-//            s.append(t);
-//        return s.toString();
-//    }
+    //filter the anagrams
+    private void storeAnagram() {
+        ArrayList<String> anagrams = new ArrayList<String>();
+        for (String s : wordsCombineList) {
+            if (wordsDictonary.contains(s)) {
+                anagrams.add(s);
+            }
+        }
+        // incase search for more than twice when build the map;
+        if (anagrams.size() > 1) {
+            sortedWords.add(anagrams);
+        }
+        wordsCombineList.clear();
+    }
     
-    public static ArrayList<Character> stringToCharacterList(String word) {
+    private ArrayList<Character> stringToCharacterList(String word) {
         ArrayList<Character> charList = new ArrayList<Character>();
         char[] ch = word.toCharArray();
         for (int i = 0; i < ch.length; i++) {
@@ -107,27 +108,28 @@ String fileName;
         return charList;
     }
     
-//    public String[] charListToStringList(char[] ci) {
-//        String[] so = new String[ci.length];
-//        for (int i = 0; i < ci.length; i++) {
-//            so[i] = String.valueOf(ci[i]);
-//        }
-//        return so;
-//    }
-    
-    public void isAnagram(HashSet<String> combineWordsList){
-        int count = 0;
-        for (String s : combineWordsList) {
-            if (wordsCombineList.contains(s)) {
-                
-                count++;
-            }
-        }
+    public void sizeOfMap(){
+        System.out.println("The size of Anagram is:" + sortedWords.size());
     }
 
-    public String getWordSign(String word) {
-        char[] signArray = word.toCharArray();
-        Arrays.sort(signArray);
-        return new String(signArray);
+    public void infoOfSingleWords() {
+        System.out.println("The left size of dictionary is:" + wordsDictonary.size());
     }
+    
+    
+    public String stringListToString(List<Character> target) {
+        StringBuffer s = new StringBuffer();
+        for (char t : target)
+            s.append(t);
+        return s.toString();
+    }
+//  public String[] charListToStringList(ArrayList<Character> cl) {
+//  String[] so = new String[cl.size()];
+//  for (int i = 0; i < cl.size(); i++) {
+//      so[i] = String.valueOf(cl.get(i));
+//  }
+//  return so;
+//}
+
+
 }
