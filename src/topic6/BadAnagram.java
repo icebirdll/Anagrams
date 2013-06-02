@@ -10,12 +10,13 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class BadAnagram {
 String fileName;
     
-    //the dictionary
-    List<String> wordsDictonary;
+    // the dictionary
+    CopyOnWriteArrayList<String> wordsDictonary;
     //temp for all the combination of one words
     HashSet<String> wordsCombineList = new HashSet<String>();
     //store all the anagram
@@ -23,7 +24,7 @@ String fileName;
     
     public BadAnagram(String fileName){
         this.fileName = fileName;
-        wordsDictonary = new ArrayList<String>();
+        wordsDictonary = new CopyOnWriteArrayList<String>();
         sortedWords = new HashSet<List<String>>();        
     }
 
@@ -93,10 +94,14 @@ String fileName;
             }
         }
         // incase search for more than twice when build the map;
-        if (anagrams.size() > 1) {
-            sortedWords.add(anagrams);
+        if (anagrams.size() < 1) {
+            return;
         }
+        sortedWords.add(anagrams);
         wordsCombineList.clear();
+        for (String s : anagrams) {
+            wordsDictonary.remove(s);
+        }
     }
     
     private ArrayList<Character> stringToCharacterList(String word) {
