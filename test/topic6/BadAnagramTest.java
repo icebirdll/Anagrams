@@ -38,12 +38,8 @@ public class BadAnagramTest {
         BadAnagram ba = new BadAnagram("anagram");
         HashSet<String> hs = new HashSet<String>();
         String s = "ab";
-        String[] ss = {"a", "c"};
-        
-        ba.createWordsCombineSet(Arrays.asList(ss),
-                new ArrayList<String>(), s.length());
-
-
+        ba.createWordsCombineSet(BadAnagram.stringToCharacterList(s),
+                new ArrayList<Character>(), s.length());
     }
     
 }

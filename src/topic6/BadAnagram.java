@@ -66,47 +66,56 @@ String fileName;
         }
     }
     
-    private void WordsCombineSet(List<String> datas, List<String> target,
+    private void WordsCombineSet(List<Character> datas, List<Character> target,
             int num) {
         if (target.size() == num) {
             System.out.println("datas: " + datas);
             System.out.println("target: " + target);
             System.out.println("num: " + num);
-            wordsCombineList.add(stringListToString(target));
+            wordsCombineList.add(target.toString());
             return;
         }
         
         for (int i = 0; i < datas.size(); i++) {
-            List<String> newDatas = new ArrayList<String>(datas);
-            List<String> newTarget = new ArrayList<String>(target);
+            List<Character> newDatas = new ArrayList<Character>(datas);
+            List<Character> newTarget = new ArrayList<Character>(target);
             newTarget.add(newDatas.get(i));
             newDatas.remove(i);
             WordsCombineSet(newDatas, newTarget, num);
         }
     }
 
-    public void createWordsCombineSet(List<String> datas, List<String> target,
+    public void createWordsCombineSet(List<Character> datas, List<Character> target,
             int num) {
         wordsCombineList.clear();
         WordsCombineSet(datas, target, num);
     }
     
-    public String stringListToString(List<String> target){
-        StringBuffer s = new StringBuffer();
-        for (String t : target)
-            s.append(t);
-        return s.toString();
-    }
-    public String[] charListToStringList(char[] ci) {
-        String[] so = new String[ci.length];
-        for (int i = 0; i < ci.length; i++) {
-            so[i] = String.valueOf(ci[i]);
+//    public String stringListToString(List<String> target){
+//        StringBuffer s = new StringBuffer();
+//        for (String t : target)
+//            s.append(t);
+//        return s.toString();
+//    }
+    
+    public static ArrayList<Character> stringToCharacterList(String word) {
+        ArrayList<Character> charList = new ArrayList<Character>();
+        char[] ch = word.toCharArray();
+        for (int i = 0; i < ch.length; i++) {
+            charList.add(ch[i]);
         }
-        return so;
+        return charList;
     }
     
+//    public String[] charListToStringList(char[] ci) {
+//        String[] so = new String[ci.length];
+//        for (int i = 0; i < ci.length; i++) {
+//            so[i] = String.valueOf(ci[i]);
+//        }
+//        return so;
+//    }
+    
     public void isAnagram(HashSet<String> combineWordsList){
-
         int count = 0;
         for (String s : combineWordsList) {
             if (wordsCombineList.contains(s)) {
@@ -114,7 +123,6 @@ String fileName;
                 count++;
             }
         }
-        
     }
 
     public String getWordSign(String word) {
