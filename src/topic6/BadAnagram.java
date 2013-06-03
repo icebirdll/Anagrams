@@ -54,9 +54,11 @@ String fileName;
         if (wordsDictonary.isEmpty()) {
             return;
         }
-        Iterator<String> it = wordsDictonary.iterator();
-        while(it.hasNext()){
-            createWordsCombineSet(it.next());
+        for (String s : wordsDictonary) {
+            if (!wordsDictonary.contains(s)) {
+                continue;
+            }
+            createWordsCombineSet(s) ;
         }
     }
     
@@ -93,12 +95,13 @@ String fileName;
                 anagrams.add(s);
             }
         }
+        wordsCombineList.clear();
         // incase search for more than twice when build the map;
-        if (anagrams.size() < 1) {
+        if (anagrams.size() < 2) {
             return;
         }
         sortedWords.add(anagrams);
-        wordsCombineList.clear();
+
         for (String s : anagrams) {
             wordsDictonary.remove(s);
         }

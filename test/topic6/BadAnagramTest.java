@@ -18,7 +18,7 @@ public class BadAnagramTest {
     public void beforeTest()
     {
        System.out.println("=====================A new case start=====================");
-//       anagram = new Anagram("Unabr.dict");
+//       anagram = new BadAnagram("longwords.dict");
        anagram = new BadAnagram("simple.dict");
     }
     
