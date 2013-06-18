@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 
@@ -18,8 +19,8 @@ public class BadAnagramTest {
     public void beforeTest()
     {
        System.out.println("=====================A new case start=====================");
-//       anagram = new BadAnagram("longwords.dict");
-       anagram = new BadAnagram("simple.dict");
+       anagram = new BadAnagram("longwords.dict");
+//       anagram = new BadAnagram("simple.dict");
     }
     
     @After
@@ -39,6 +40,7 @@ public class BadAnagramTest {
         System.out.println("The total mill seconds are:" + (timestamp2 - timestamp1));
     }
     
+    @Ignore
     @Test
     public void testInfo(){
         anagram.loadDictionary();
@@ -47,6 +49,7 @@ public class BadAnagramTest {
         anagram.sizeOfMap();
     }
 
+    @Ignore
     @Test
     public void testOk() {
         String s = "abc";
@@ -68,6 +71,5 @@ public class BadAnagramTest {
             sb.append(t);
         System.out.println(sb.toString());
         
-
     }
 }

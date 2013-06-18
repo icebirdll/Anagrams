@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import static org.hamcrest.core.Is.*;;
 
@@ -29,6 +30,7 @@ public class AnagramTest {
         System.out.println("=====================A new case end=======================");
     }
     
+    @Ignore
     @Test
     public void testKeyList(){
         String a = "asdfghjkl";
@@ -36,6 +38,7 @@ public class AnagramTest {
         System.out.println(anagram.getWordSign(a));        
     }
     
+    @Ignore
     @Test
     public void testDupKeyList(){
         String a = "absdfhghjkbl";
@@ -54,6 +57,7 @@ public class AnagramTest {
         System.out.println("The total mill seconds are:" + (timestamp2 - timestamp1));
     }
     
+    @Ignore
     @Test
     public void testSpecficWords(){
         anagram.loadDictionary();
@@ -69,9 +73,10 @@ public class AnagramTest {
         anagram.loadDictionary();
         anagram.buildMap();
         anagram.info();
-        anagram.sizeOfMap();
+        anagram.listAllAnagrams();
     }
     
+    @Ignore
     @Test
     public void testLongestWords(){
         anagram.loadDictionary();
