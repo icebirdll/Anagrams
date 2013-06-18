@@ -90,7 +90,10 @@ String fileName;
     //filter the anagrams
     private void storeAnagram() {
         ArrayList<String> anagrams = new ArrayList<String>();
+       //count: use to print the index of combination letters
+        int count = 0;
         for (String s : wordsCombineList) {
+            System.out.println("The " + ++count + " of words order result is " + s);
             if (wordsDictonary.contains(s)) {
                 anagrams.add(s);
             }

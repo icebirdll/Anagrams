@@ -40,7 +40,6 @@ public class BadAnagramTest {
         System.out.println("The total mill seconds are:" + (timestamp2 - timestamp1));
     }
     
-    @Ignore
     @Test
     public void testInfo(){
         anagram.loadDictionary();
